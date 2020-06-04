@@ -807,6 +807,7 @@ body.carregando .ver-mais-videos {
   color: #333;
   border: 1px solid #f1f1f1;
   border-radius: 3px;
+  line-height: 32px;
 }
 
 .updated-at {
