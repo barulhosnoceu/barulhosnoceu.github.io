@@ -987,4 +987,17 @@ body.carregando .ver-mais-videos {
   background: black;
   border-radius: 5px;
 }
+
+@media screen and (max-width: 768px) {
+  .video-lista {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .wrapper {
+    padding: 10px;
+  }
+  .content-wrapper {
+    padding: 10px;
+  }
+}
 /*# sourceMappingURL=main.css.map */
