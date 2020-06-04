@@ -999,9 +999,6 @@ body.carregando .ver-mais-videos {
 }
 
 @media screen and (max-width: 768px) {
-  .video-youtube .linkMobile {
-    display: block;
-  }
   .video-lista {
     margin-left: 0px;
     margin-right: 0px;

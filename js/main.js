@@ -23,7 +23,7 @@ $(function(){
       $(fragment).find('.video-icon img').attr('src','img/icones/'+video.icon+'.png');      
       $(fragment).find('.video-banner').addClass('video-'+video.icon);
       if(video.source.youtube){
-        $(fragment).find('.video-banner').html('<iframe width="300" height="200" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <a class="linkMobile"></a>');
+        $(fragment).find('.video-banner').html('<iframe width="300" height="200" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <a class="linkMobile" target="_blank" rel="noopener"></a>');
         $(fragment).find('iframe').attr('src',video.source.youtube);
       }else {
         var sources = '';
