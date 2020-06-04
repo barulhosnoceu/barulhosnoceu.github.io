@@ -20,11 +20,10 @@ $(function(){
       $(fragment).find('.video-text').text(video.description);
       $(fragment).find('.video-date .date').text(video.date);
       $(fragment).find('.video-date .bandeira').attr('style','background-image: url("img/bandeiras/'+video.country+'.png")');      
-      $(fragment).find('.video-icon img').attr('src','img/icones/'+video.icon+'.png');
-      $(fragment).find('a').attr('href',video.url);
+      $(fragment).find('.video-icon img').attr('src','img/icones/'+video.icon+'.png');      
       $(fragment).find('.video-banner').addClass('video-'+video.icon);
       if(video.source.youtube){
-        $(fragment).find('.video-banner').html('<iframe width="300" height="200" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+        $(fragment).find('.video-banner').html('<iframe width="300" height="200" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <a class="linkMobile"></a>');
         $(fragment).find('iframe').attr('src',video.source.youtube);
       }else {
         var sources = '';
@@ -39,6 +38,7 @@ $(function(){
           $(fragment).find('.video-banner video').append($source);
         }
       }
+      $(fragment).find('a').attr('href',video.url);
       $('.updated-at').html('Última atualização:<br> <span class="tempoUltimaAtualizacao"><span>');
       $('.tempoUltimaAtualizacao').text(data.lastUpdated);
       $('.lista').append(fragment);
