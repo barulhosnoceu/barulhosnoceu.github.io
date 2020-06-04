@@ -19,7 +19,7 @@ $(function(){
       $(fragment).append(template);
       $(fragment).find('.video-text').text(video.description);
       $(fragment).find('.video-date .date').text(video.date);
-      $(fragment).find('.video-date .bandeira').attr('style','background-image: url("img/bandeiras/'+video.country+'.png")');      
+      // $(fragment).find('.video-date .bandeira').attr('style','background-image: url("img/bandeiras/'+video.country+'.png")');      
       $(fragment).find('.video-icon img').attr('src','img/icones/'+video.icon+'.png');      
       $(fragment).find('.video-banner').addClass('video-'+video.icon).attr('data-id',video.id);
       if(video.source.youtube){
@@ -38,7 +38,8 @@ $(function(){
           $(fragment).find('.video-banner video').append($source);
         }
       }
-      $(fragment).find('a').attr('href',video.url);
+      $(fragment).find('a').attr('href',video.url).attr('title',video.description);
+      $(fragment).find('img:not([alt])').attr('alt',video.description);
       $('.updated-at').html('Última atualização:<br> <span class="tempoUltimaAtualizacao"><span>');
       $('.tempoUltimaAtualizacao').text(data.lastUpdated);
       $('.lista').append(fragment);
