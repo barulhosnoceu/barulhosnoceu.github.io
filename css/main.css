@@ -801,6 +801,15 @@ body.carregando .ver-mais-videos {
   background: #474c50;
 }
 
+.linkMobile {
+  width: 100%;
+  display: block;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .tag {
   padding: 4px 6px;
   background: #d1d1d1;
@@ -990,6 +999,9 @@ body.carregando .ver-mais-videos {
 }
 
 @media screen and (max-width: 768px) {
+  .linkMobile {
+    display: block;
+  }
   .video-lista {
     margin-left: 0px;
     margin-right: 0px;
