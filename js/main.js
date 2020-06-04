@@ -21,7 +21,7 @@ $(function(){
       $(fragment).find('.video-date .date').text(video.date);
       $(fragment).find('.video-date .bandeira').attr('style','background-image: url("img/bandeiras/'+video.country+'.png")');      
       $(fragment).find('.video-icon img').attr('src','img/icones/'+video.icon+'.png');      
-      $(fragment).find('.video-banner').addClass('video-'+video.icon);
+      $(fragment).find('.video-banner').addClass('video-'+video.icon).attr('data-id',video.id);
       if(video.source.youtube){
         $(fragment).find('.video-banner').html('<iframe width="300" height="200" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <a class="linkMobile" target="_blank" rel="noopener"></a>');
         $(fragment).find('iframe').attr('src',video.source.youtube);
