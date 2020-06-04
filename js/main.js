@@ -22,6 +22,7 @@ $(function(){
       $(fragment).find('.video-date .bandeira').attr('style','background-image: url("img/bandeiras/'+video.country+'.png")');      
       $(fragment).find('.video-icon img').attr('src','img/icones/'+video.icon+'.png');
       $(fragment).find('a').attr('href',video.url);
+      $(fragment).find('.video-banner').addClass('video-'+video.icon);
       if(video.source.youtube){
         $(fragment).find('.video-banner').html('<iframe width="300" height="200" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
         $(fragment).find('iframe').attr('src',video.source.youtube);
@@ -29,7 +30,7 @@ $(function(){
         var sources = '';
         if(video.source['mp4']){
           var $source = $('<source type="video/mp4">');
-          $source.attr('src',video.source['mp4']);
+          $source.attr('src',video.source['mp4']+'#t=0.5');
           $(fragment).find('.video-banner video').append($source);
         }
         if(video.source['ogg']){

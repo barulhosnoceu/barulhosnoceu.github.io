@@ -803,7 +803,7 @@ body.carregando .ver-mais-videos {
 
 .linkMobile {
   width: 100%;
-  display: block;
+  display: none;
   height: 200px;
   position: absolute;
   top: 0;
@@ -999,7 +999,7 @@ body.carregando .ver-mais-videos {
 }
 
 @media screen and (max-width: 768px) {
-  .linkMobile {
+  .video-youtube .linkMobile {
     display: block;
   }
   .video-lista {
