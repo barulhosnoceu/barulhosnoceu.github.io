@@ -661,13 +661,13 @@ html, body {
 }
 
 .total-videos .content-total-videos {
-  font-size: 60px;
+  font-size: 45px;
   text-align: center;
   display: block;
   max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
-  margin-top: 5px;
+  margin-top: 15px;
   text-overflow: ellipsis;
 }
 
@@ -825,7 +825,7 @@ body.carregando .ver-mais-videos {
 
 .btn-enviar-video {
   font-size: 14px;
-  line-height: 28px;
+  line-height: 58px;
   float: right;
 }
 
@@ -953,6 +953,9 @@ body.carregando .ver-mais-videos {
   width: 20px;
   height: 20px;
   float: right;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
   margin-top: 2px;
 }
 

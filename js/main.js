@@ -19,7 +19,7 @@ $(function(){
       $(fragment).append(template);
       $(fragment).find('.video-text').text(video.description);
       $(fragment).find('.video-date .date').text(video.date);
-      // $(fragment).find('.video-date .bandeira').attr('style','background-image: url("img/bandeiras/'+video.country+'.png")');      
+      $(fragment).find('.video-date .bandeira').attr('style','background-image: url("img/bandeiras/'+video.country+'.png")');      
       $(fragment).find('.video-icon img').attr('src','img/icones/'+video.icon+'.png');      
       $(fragment).find('.video-banner').addClass('video-'+video.icon).attr('data-id',video.id);
       if(video.source.youtube){
@@ -42,7 +42,27 @@ $(function(){
       $(fragment).find('img:not([alt])').attr('alt',video.description);
       $('.updated-at').html('Última atualização:<br> <span class="tempoUltimaAtualizacao"><span>');
       $('.tempoUltimaAtualizacao').text(data.lastUpdated);
+      var $video = $(fragment).find('video');
       $('.lista').append(fragment);
+
+      // $video.on('pause',function(e){
+      //   trackData({
+      //     hitType: 'event',
+      //     eventCategory: 'Video',
+      //     eventAction: 'pause',
+      //     eventLabel: e.target.currentSrc
+      //   });
+      // });
+
+      // $video.on('play',function(e){
+      //   trackData({
+      //     hitType: 'event',
+      //     eventCategory: 'Video',
+      //     eventAction: 'play',
+      //     eventLabel: e.target.currentSrc
+      //   });
+      // });
+    
     });
     
     $('.lista .loading-video').remove();
@@ -73,8 +93,12 @@ $(function(){
     if(!cacheControl){
       cacheControl = (new Date * 1);
     }
+    var prefix = 'br-';
+    if(location.search === '?todos'){
+      prefix = '';
+    }
     $.ajax({
-      url: '/videos/'+page+'.json?c='+cacheControl,
+      url: '/videos/'+prefix+page+'.json?c='+cacheControl,
       dataType: "json",
       success: function(data){
         dataToRender = data;
@@ -94,7 +118,30 @@ $(function(){
   }
   $(document).ready(function(){
     loadVideos('latest');
+    if(location.search === '?todos'){
+      $('.btn-enviar-video').text('Ver vídeos apenas do Brasil').attr('href','/');
+    }else{
+      $('.btn-enviar-video').text('Ver vídeos do mundo todo').attr('href','/?todos');
+    }
   });
+
+  // function trackData(data){
+  //   //todo: gdprbot
+  //   //track do youtube
+  //   //
+  //   console.log(data);
+  // } 
+
+
+  // $(document).on('click','a',function(e){
+  //   trackData({
+  //     hitType: 'event',
+  //     eventCategory: 'Link',
+  //     eventAction: 'click',
+  //     eventLabel: e.target.href
+  //   });
+  // });
+  
 
   $('.ver-mais-videos').click(function(){
     if($(this).hasClass('carregando')){
