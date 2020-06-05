@@ -865,6 +865,10 @@ body.carregando .ver-mais-videos, body.carregando .ver-anterior {
   visibility: hidden;
 }
 
+.ver-anterior.sem-mais-paginas {
+  display: none;
+}
+
 .ver-mais-videos {
   width: 100%;
   padding: 10px;

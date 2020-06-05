@@ -524,6 +524,9 @@ body.carregando {
 .sem-mais-paginas { 
   visibility: hidden;
 }
+.ver-anterior.sem-mais-paginas {
+  display: none;
+}
 .ver-mais-videos {
   width: 100%;
   padding: 10px;
