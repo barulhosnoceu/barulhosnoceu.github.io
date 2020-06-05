@@ -942,6 +942,8 @@ body.carregando .ver-mais-videos, body.carregando .ver-anterior {
   margin: auto;
   max-width: 60px;
   max-height: 60px;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
 }
 
 .comentarios {
@@ -986,6 +988,8 @@ body.carregando .ver-mais-videos, body.carregando .ver-anterior {
   background-repeat: no-repeat;
   background-position: center center;
   margin-top: 2px;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
 }
 
 .video-date {

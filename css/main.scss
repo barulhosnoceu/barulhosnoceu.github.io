@@ -594,6 +594,7 @@ body.carregando {
     margin: auto;
     max-width: 60px;
     max-height: 60px;
+    filter: grayscale(1);
   }
 }
 .comentarios { 
@@ -636,6 +637,7 @@ body.carregando {
   background-repeat: no-repeat;
   background-position: center center;
   margin-top: 2px;
+  filter: grayscale(1);
 }
 
 .video-date {
