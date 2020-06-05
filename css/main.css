@@ -749,7 +749,7 @@ body.carregando .content-total-videos::after {
   content: "";
 }
 
-body.carregando .ver-mais-videos {
+body.carregando .ver-mais-videos, body.carregando .ver-anterior {
   font-size: 0px;
   background-image: url(../img/loader.gif);
 }
@@ -886,6 +886,31 @@ body.carregando .ver-mais-videos {
 }
 
 .ver-mais-videos:hover {
+  background-color: #474c50;
+}
+
+.ver-anterior {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  clear: both;
+  color: #fff;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  height: 40px;
+  font-size: 15px;
+  cursor: pointer;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-transition: background 120ms ease-in 0s;
+  transition: background 120ms ease-in 0s;
+}
+
+.ver-anterior:hover {
   background-color: #474c50;
 }
 
