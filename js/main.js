@@ -52,7 +52,9 @@ $(function(){
       $(fragment).find('a').attr('href',video.url).attr('title',video.description);
       $(fragment).find('img:not([alt])').attr('alt',video.description);
       $('.updated-at').html('Última atualização:<br> <span class="tempoUltimaAtualizacao"><span>');
-      $('.tempoUltimaAtualizacao').text(data.lastUpdated);
+      if(data.lastUpdated){
+        $('.tempoUltimaAtualizacao').text(data.lastUpdated);
+      }
       var $video = $(fragment).find('video');     
         
       if(action === 'prepend'){
@@ -89,7 +91,12 @@ $(function(){
     
     $('.lista .loading-video').remove();
     $('.lista').find('.oculto').removeClass('oculto');
-    $('.content-total-videos').text(data.total);
+    
+    if(data.total){
+      $('.content-total-videos').text(data.total);
+    }
+
+
     $(".label-top").text('Total de vídeos');
     $('body').removeClass('carregando');
     $('.ver-mais-videos,.ver-anterior').removeClass('carregando');
