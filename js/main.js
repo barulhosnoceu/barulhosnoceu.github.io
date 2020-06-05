@@ -51,10 +51,7 @@ $(function(){
       }
       $(fragment).find('a').attr('href',video.url).attr('title',video.description);
       $(fragment).find('img:not([alt])').attr('alt',video.description);
-      $('.updated-at').html('Última atualização:<br> <span class="tempoUltimaAtualizacao"><span>');
-      if(data.lastUpdated){
-        $('.tempoUltimaAtualizacao').text(data.lastUpdated);
-      }
+      
       var $video = $(fragment).find('video');     
         
       if(action === 'prepend'){
@@ -83,6 +80,12 @@ $(function(){
     
     });
     
+    
+    if(data.lastUpdated){ 
+      $('.updated-at').html('Última atualização:<br> <span class="tempoUltimaAtualizacao"><span>');
+      $('.tempoUltimaAtualizacao').text(data.lastUpdated);
+    }
+
     if(action === 'prepend'){
       $(resultados.find('.video-lista').get().reverse()).each(function(){
         $('.lista').prepend($(this));
