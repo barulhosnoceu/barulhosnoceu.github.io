@@ -7,7 +7,7 @@
   <meta name="description" content="Videos de barulhos escutados no céu do Brasil e do Mundo">
   <meta name="viewport" content="width=device-width, initial-scale=1">
     
-  <link rel="stylesheet" href="css/main.css?c=13">
+  <link rel="stylesheet" href="css/main.css?c=15">
 
   <meta name="theme-color" content="#fafafa">
 </head>
@@ -63,6 +63,20 @@
   </div>
   <script type="text/template" id="videoTemplate" style="display: none !important;">
     <div class="video-lista oculto">
+      <div class="eye-hidden"></div>
+      <form class="feedback-banner" onSubmit="return false;">
+          <input type="hidden" class="actionValue" name="actionValue">
+          <span class="feedback-title">Qual sua opinião sobre o vídeo ?</span>
+          <div class="range-div">
+            <span class="min-value">0</span>
+            <input type="range" class="range" min="0" max="10" value="5" required>
+            <span class="max-value">10</span>
+          </div>
+          <textarea maxlength="200" name="feedback" placeholder="Deixe um comentário "></textarea>
+          <input type="submit" class="send" value="Enviar">
+          <input type="reset" class="cancel" value="Não quero avaliar">
+          <div class="gap"></div>
+      </form>
       <div class="video-banner">
         <video width="300" height="200" preload="metadata" controls></video>
         <a class="linkMobile" target="_blank" rel="noopener"></a>
@@ -74,22 +88,29 @@
       </a>
       <a target="_blank" class="video-date" rel="noopener">
         <span class="date"></span>
-        <span class="bandeira"></span>
+        <span class="bandeira"></span>        
       </a>
+
+      <label class="actions"> 
+        <select name="actions" class="selectActions">
+            <option value="none">🌚 Não opinar </option>
+            <option value="like" class="like">👍 Curtir </option>
+            <option value="unlike" class="unlike">😡 Não curtir </option>
+            <option value="report" class="report">💩 Denunciar </option>
+        </select>
+      </label>
     </div>
+  </script>
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;    
   </script>
   <script src="js/vendor/modernizr-3.8.0.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
-  <script src="js/plugins.js?c=13"></script>
-  <script src="js/main.js?c=13"></script>
+  <script src="js/plugins.js?c=15"></script>
+  <script src="js/main.js?c=15"></script>
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0"></script>
-  
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-168588272-1', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
-  </script>
   <script src="https://www.google-analytics.com/analytics.js" async></script>
 </body>
 

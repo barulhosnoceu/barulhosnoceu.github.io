@@ -5,6 +5,96 @@ $(function(){
   var template = $("#videoTemplate").html();
   $(".label-top").text('Total de vídeos');
   $('.content-total-videos').text(0);
+
+  var docCookies = {
+    getItem: function (sKey) {
+      return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+    },
+    setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+      if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return false; }
+      var sExpires = "";
+      if (vEnd) {
+        switch (vEnd.constructor) {
+          case Number:
+            sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
+            break;
+          case String:
+            sExpires = "; expires=" + vEnd;
+            break;
+          case Date:
+            sExpires = "; expires=" + vEnd.toUTCString();
+            break;
+        }
+      }
+      document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+      return true;
+    },
+    removeItem: function (sKey, sPath, sDomain) {
+      if (!sKey || !this.hasItem(sKey)) { return false; }
+      document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + ( sDomain ? "; domain=" + sDomain : "") + ( sPath ? "; path=" + sPath : "");
+      return true;
+    },
+    hasItem: function (sKey) {
+      return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+    },
+    keys: /* optional method: you can safely remove it! */ function () {
+      var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
+      for (var nIdx = 0; nIdx < aKeys.length; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
+      return aKeys;
+    }
+  };
+
+  function sendFeedback(data){
+    data.userId = getUserId();
+
+    $.ajax({
+      url: 'https://sendtrack.barulhonoceu.com.br',
+      data: data,
+      dataType: 'json',
+      type: 'post',
+      async: true
+    });
+
+  }
+
+  function savePersistent(table,field,value){
+    var key = table+':'+field;
+    if(docCookies.hasItem(key)){
+      docCookies.removeItem(key);
+    }
+    docCookies.setItem(key,value);
+  }
+
+  function getPersistent(table,field){
+    var key = table+':'+field;
+    if(docCookies.hasItem(key)){
+      return docCookies.getItem(key);
+    }
+    return undefined;
+  }
+
+  function removePersistent(table,field){
+    var key = table+':'+field;
+    docCookies.removeItem(key);
+  }
+
+  function getUserId(){
+    var userId = getPersistent('user','id');
+    if(userId){
+      return userId;
+    }
+    userId = (new Date * 1)+'_'+Math.random().toString(36).substr(0,15);
+    savePersistent('user','id',userId);
+    return userId;
+  }
+
+  function getVideoActionSelected(videoId){
+    var videosActions = getPersistent('actions',videoId);
+    return videosActions;
+  }
+
+  
+
   function render(data,action){
     var resultados = $('<div />');
     if(action !== 'prepend'){
@@ -53,7 +143,13 @@ $(function(){
       $(fragment).find('img:not([alt])').attr('alt',video.description);
       
       var $video = $(fragment).find('video');     
-        
+      var actionUser = getVideoActionSelected(video.id);
+      if(actionUser){
+        $(fragment).find('.selectActions').val(actionUser);
+        $(fragment).find('.video-lista').removeClass('like unlike report none');
+        $(fragment).find('.video-lista').addClass(actionUser);
+      }
+
       if(action === 'prepend'){
         resultados.append(fragment);
       }else{
@@ -175,6 +271,9 @@ $(function(){
     }else{
       $('.btn-enviar-video').text('Ver vídeos do mundo todo').attr('href','/?todos');
     }
+    ga('create', 'UA-168588272-1', { 'userId': getUserId() });
+     ga('set','transport','beacon'); 
+     ga('send', 'pageview');
   });
 
   // function trackData(data){
@@ -225,5 +324,78 @@ $(function(){
       $('.video-lista:last').remove();
     }
     loadVideos(page+1,'prepend');
+  });
+  $(document).on('submit','.feedback-banner',function(){
+    var $this = $(this);
+    $this.removeClass('avaliar');
+    var $lista = $this.parents('.video-lista');
+    var videoId = $lista.find('.video-banner').attr('data-id');
+    sendFeedback({
+      videoId: videoId,
+      action: $this.find('.actionValue').val(),
+      comment: $this.find('textarea').val(),
+      range: $this.find('input[type=range]').val()
+    });
+    return false;
+  });
+  $(document).on('reset','.feedback-banner',function(){
+    if(confirm('A avaliação nós ajuda a melhorar a classificação dos vídeos. Deseja continuar ?')){
+      $(this).removeClass('avaliar');
+      return true;
+    }
+    return false;
+  });
+
+  $(document).on('click','.eye-hidden',function(){
+    $(this).toggleClass('visible-video');
+  });
+
+  
+  $(document).on('change','.selectActions',function(){
+    var $this = $(this);
+    var valor = $this.val();
+    var $lista = $this.parents('.video-lista');
+    $lista.removeClass('like unlike report none');
+    $lista.addClass(valor);
+    var minValueText = '0';
+    var maxValueText = '10';
+    var avaliar = false; 
+    switch(valor){
+      case 'like':
+        minValueText = '🙂';
+        maxValueText = '🤩';
+        avaliar = true;
+      break;
+      case 'unlike':
+        minValueText = '☹️';
+        maxValueText = '😡';
+        avaliar = true;
+      break;
+      case 'report':
+        minValueText = '💩';
+        maxValueText = '🤮';
+        avaliar = true;
+      break;
+
+    }
+    $('.min-value',$lista).text(minValueText);
+    $('.max-value',$lista).text(maxValueText);
+    var videoId = $lista.find('.video-banner').attr('data-id');
+    $lista.find('form .actionValue').val(valor);
+    if(avaliar){
+      $lista.find('form').addClass('avaliar');
+      $lista.find('form textarea').focus();
+    }else{
+      $lista.find('form').removeClass('avaliar');
+    }
+    if(valor === 'none'){
+      removePersistent('actions',videoId);
+    }else{
+      savePersistent('actions',videoId,valor);
+    }
+    sendFeedback({
+      videoId: videoId,
+      action: $this.val()
+    });
   });
 });
