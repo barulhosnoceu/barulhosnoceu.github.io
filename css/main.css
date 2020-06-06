@@ -1268,12 +1268,10 @@ body.carregando .ver-mais-videos, body.carregando .ver-anterior {
 
 .feedback-banner .range::-moz-range-progress {
   height: 20px;
-  background: red;
 }
 
 .feedback-banner .range::-ms-fill-lower {
   height: 20px;
-  background: red;
 }
 
 .feedback-banner .range::-ms-tooltip {
