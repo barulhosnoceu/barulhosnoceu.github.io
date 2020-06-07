@@ -246,10 +246,10 @@ $(function(){
         if(page === 'latest'){
           maxPage = data.page;
         }
-        if(minTime === 0 || expirado){
+        // if(minTime === 0 || expirado){
           dataToRender = null;
           render(data,action);
-        }
+        // }
       },
       error: function(){
         clearTimeout(minTime);
