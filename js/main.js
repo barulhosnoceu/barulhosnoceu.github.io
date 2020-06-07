@@ -240,7 +240,7 @@ $(function(){
       url: '/videos/'+prefix+page+'.json?c='+cacheControl,
       dataType: "json",
       success: function(data){
-        dataToRender = data;
+        // dataToRender = data;
         cacheControl = data.cacheControl;
         currentPage = data.page;
         if(page === 'latest'){
